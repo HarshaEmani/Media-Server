@@ -152,7 +152,7 @@ services:
       - /dev/net/tun:/dev/net/tun
     environment:
       - VPN_SERVICE_PROVIDER=surfshark
-      - VPN_TYPE=openvpn # or wireguard
+      - VPN_TYPE=wireguard # or wireguard
       - WIREGUARD_PRIVATE_KEY=OMwClKyza32y/SoccgP30uaDa47tQ+kCqp3Gn/SYRWA=
       - WIREGUARD_ADDRESSES=10.14.0.2/16
       - SERVER_COUNTRIES=Canada
