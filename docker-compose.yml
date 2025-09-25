@@ -8,7 +8,7 @@ services:
   radarr:
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr
-    # network_mode: "service:gluetun"
+    network_mode: "service:gluetun"
     environment:
       - PUID=1000
       - PGID=1000
@@ -26,7 +26,7 @@ services:
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
     container_name: sonarr
-    # network_mode: "service:gluetun"
+    network_mode: "service:gluetun"
     environment:
       - PUID=1000
       - PGID=1000
@@ -44,7 +44,7 @@ services:
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
-    # network_mode: "service:gluetun"
+    network_mode: "service:gluetun"
     environment:
       - PUID=1000
       - PGID=1000
@@ -60,7 +60,7 @@ services:
   bazarr:
     image: lscr.io/linuxserver/bazarr:latest
     container_name: bazarr
-    # network_mode: "service:gluetun"
+    network_mode: "service:gluetun"
     environment:
       - PUID=1000
       - PGID=1000
@@ -78,7 +78,7 @@ services:
   lidarr:
     image: lscr.io/linuxserver/lidarr:latest
     container_name: lidarr
-    # network_mode: "service:gluetun"
+    network_mode: "service:gluetun"
     environment:
       - PUID=1000
       - PGID=1000
@@ -96,7 +96,7 @@ services:
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
     container_name: qbittorrent
-    # network_mode: "service:gluetun"
+    network_mode: "service:gluetun"
     environment:
       - PUID=1000
       - PGID=1000
@@ -130,31 +130,31 @@ services:
       - 1900:1900/udp #optional
     restart: unless-stopped
     
-# ############################
-# # GLUETUN
-# ############################
+############################
+# GLUETUN
+############################
 
-#   gluetun:
-#     image: qmcgaw/gluetun
-#     container_name: gluetun
-#     ports:
-#       - 9696:9696 #prowlarr
-#       - 7878:7878 #radarr
-#       - 8989:8989 #sonarr
-#       - 6767:6767 #bazarr
-#       - 8686:8686 #lidarr
-#       - 8080:8080 #qbittorrent
-#       - 6881:6881 #qbittorrent
-#       - 6881:6881/udp #qbittorrent
-#     cap_add:
-#       - NET_ADMIN
-#     devices:
-#       - /dev/net/tun:/dev/net/tun
-#     environment:
-#       - VPN_SERVICE_PROVIDER=surfshark
-#       - VPN_TYPE=openvpn # or wireguard
-#       - OPENVPN_USER=<your vpn user>
-#       - OPENVPN_PASSWORD=<your vpn password>
-#       - SERVER_COUNTRIES=Canada
+  gluetun:
+    image: qmcgaw/gluetun
+    container_name: gluetun
+    ports:
+      - 9696:9696 #prowlarr
+      - 7878:7878 #radarr
+      - 8989:8989 #sonarr
+      - 6767:6767 #bazarr
+      - 8686:8686 #lidarr
+      - 8080:8080 #qbittorrent
+      - 6881:6881 #qbittorrent
+      - 6881:6881/udp #qbittorrent
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    environment:
+      - VPN_SERVICE_PROVIDER=surfshark
+      - VPN_TYPE=openvpn # or wireguard
+      - WIREGUARD_PRIVATE_KEY=OMwClKyza32y/SoccgP30uaDa47tQ+kCqp3Gn/SYRWA=
+      - WIREGUARD_ADDRESSES=10.14.0.2/16
+      - SERVER_COUNTRIES=Canada
       
-# ############################
+############################
