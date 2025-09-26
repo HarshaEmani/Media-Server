@@ -2,6 +2,22 @@
 services:
 
 ############################
+# NGINX PROXY MANAGER
+############################
+
+  npm:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: npm
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    volumes:
+      - /media/harsha/Data/arr/npm/data:/data
+      - /media/harsha/Data/arr/npm/letsencrypt:/etc/letsencrypt
+
+############################
 # RADARR
 ############################
 
