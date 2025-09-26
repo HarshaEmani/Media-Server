@@ -88,6 +88,20 @@ services:
       - /media/harsha/Data/arr/lidarr/music:/music #optional
       - /media/harsha/Data/arr/qbittorrent/downloads:/downloads #optional
     restart: unless-stopped
+
+  flaresolverr:
+      # DockerHub mirror flaresolverr/flaresolverr:latest
+      image: ghcr.io/flaresolverr/flaresolverr:latest
+      container_name: flaresolverr
+      network_mode: "service:gluetun"
+      environment:
+        - LOG_LEVEL=${LOG_LEVEL:-info}
+        - LOG_HTML=${LOG_HTML:-false}
+        - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
+        - TZ=America/Halifax
+      # ports:
+      #   - "${PORT:-8191}:8191"
+      restart: unless-stopped
     
 ############################
 # QBITTORRENT		
@@ -146,6 +160,7 @@ services:
       - 8080:8080 #qbittorrent
       - 6881:6881 #qbittorrent
       - 6881:6881/udp #qbittorrent
+      - 8191:8191 #flaresolverr
     cap_add:
       - NET_ADMIN
     devices:
@@ -159,16 +174,3 @@ services:
       
 ############################
 
-  flaresolverr:
-      # DockerHub mirror flaresolverr/flaresolverr:latest
-      image: ghcr.io/flaresolverr/flaresolverr:latest
-      container_name: flaresolverr
-      network_mode: "service:gluetun"
-      environment:
-        - LOG_LEVEL=${LOG_LEVEL:-info}
-        - LOG_HTML=${LOG_HTML:-false}
-        - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
-        - TZ=America/Halifax
-      ports:
-        - "${PORT:-8191}:8191"
-      restart: unless-stopped
