@@ -31,8 +31,8 @@ services:
       - TZ=America/Halifax
     volumes:
       - ./appdata/radarr:/config
-      - /media/harsha/Data/media/movies:/movies # <-- CHANGED
-      - /media/harsha/Data/downloads:/downloads # <-- CHANGED
+      - /media/harsha/HDD/media/movies:/movies # <-- CHANGED
+      - /media/harsha/HDD/downloads:/downloads # <-- CHANGED
     restart: unless-stopped
 
 ############################
@@ -49,8 +49,8 @@ services:
       - TZ=America/Halifax
     volumes:
       - ./appdata/sonarr:/config
-      - /media/harsha/Data/media/tv:/tv # <-- CHANGED
-      - /media/harsha/Data/downloads:/downloads # <-- CHANGED
+      - /media/harsha/HDD/media/tv:/tv # <-- CHANGED
+      - /media/harsha/HDD/downloads:/downloads # <-- CHANGED
     restart: unless-stopped
 
 ############################
@@ -83,8 +83,8 @@ services:
       - TZ=America/Halifax
     volumes:
       - ./appdata/bazarr:/config
-      - /media/harsha/Data/media/movies:/movies # <-- CHANGED
-      - /media/harsha/Data/media/tv:/tv       # <-- CHANGED
+      - /media/harsha/HDD/media/movies:/movies # <-- CHANGED
+      - /media/harsha/HDD/media/tv:/tv       # <-- CHANGED
     restart: unless-stopped
 
 ############################
@@ -101,8 +101,8 @@ services:
       - TZ=America/Halifax
     volumes:
       - ./appdata/lidarr:/config
-      - /media/harsha/Data/media/music:/music # <-- CHANGED
-      - /media/harsha/Data/downloads:/downloads # <-- CHANGED
+      - /media/harsha/HDD/media/music:/music # <-- CHANGED
+      - /media/harsha/HDD/downloads:/downloads # <-- CHANGED
     restart: unless-stopped
 
 ############################
@@ -136,7 +136,7 @@ services:
       - TORRENTING_PORT=6881
     volumes:
       - ./appdata/qbittorrent:/config
-      - /media/harsha/Data/downloads:/downloads # <-- CHANGED
+      - /media/harsha/HDD/downloads:/downloads # <-- CHANGED
     restart: unless-stopped
 
 ############################
@@ -152,9 +152,9 @@ services:
       - TZ=America/Halifax
     volumes:
       - ./appdata/jellyfin:/config
-      - /media/harsha/Data/media/tv:/data/tvshows    # <-- CHANGED
-      - /media/harsha/Data/media/movies:/data/movies  # <-- CHANGED
-      - /media/harsha/Data/media/music:/data/music    # <-- ADDED
+      - /media/harsha/HDD/media/tv:/data/tvshows    # <-- CHANGED
+      - /media/harsha/HDD/media/movies:/data/movies  # <-- CHANGED
+      - /media/harsha/HDD/media/music:/data/music    # <-- ADDED
     ports:
       - 8096:8096
       - 8920:8920
