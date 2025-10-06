@@ -14,8 +14,8 @@ services:
       - '81:81'
       - '443:443'
     volumes:
-      - /media/harsha/Data/arr/npm/data:/data
-      - /media/harsha/Data/arr/npm/letsencrypt:/etc/letsencrypt
+      - ./appdata/npm/data:/data
+      - ./appdata/npm/letsencrypt:/etc/letsencrypt
 
 ############################
 # RADARR
@@ -30,11 +30,11 @@ services:
       - PGID=1000
       - TZ=America/Halifax
     volumes:
-      - /media/harsha/Data/arr/radarr/config:/config
-      - /media/harsha/Data/arr/radarr/movies:/movies #optional
-      - /media/harsha/Data/arr/qbittorrent/downloads:/downloads #optional
+      - ./appdata/radarr:/config
+      - /media/harsha/Data/arr/radarr/movies:/movies
+      - /media/harsha/Data/arr/qbittorrent/downloads:/downloads
     restart: unless-stopped
-    
+
 ############################
 # SONARR
 ############################
@@ -48,11 +48,11 @@ services:
       - PGID=1000
       - TZ=America/Halifax
     volumes:
-      - /media/harsha/Data/arr/sonarr/config:/config
-      - /media/harsha/Data/arr/sonarr/tvseries:/tv #optional
-      - /media/harsha/Data/arr/qbittorrent/downloads:/downloads #optional
+      - ./appdata/sonarr:/config
+      - /media/harsha/Data/arr/sonarr/tvseries:/tv
+      - /media/harsha/Data/arr/qbittorrent/downloads:/downloads
     restart: unless-stopped
-    
+
 ############################
 # PROWLARR
 ############################
@@ -66,7 +66,7 @@ services:
       - PGID=1000
       - TZ=America/Halifax
     volumes:
-      - /media/harsha/Data/arr/prowlarr/config:/config
+      - ./appdata/prowlarr:/config
     restart: unless-stopped
 
 ############################
@@ -82,11 +82,11 @@ services:
       - PGID=1000
       - TZ=America/Halifax
     volumes:
-      - /media/harsha/Data/arr/bazarr/config:/config
-      - /media/harsha/Data/arr/radarr/movies:/movies #optional
-      - /media/harsha/Data/arr/sonarr/tvseries:/tv #optional
+      - ./appdata/bazarr:/config
+      - /media/harsha/Data/arr/radarr/movies:/movies
+      - /media/harsha/Data/arr/sonarr/tvseries:/tv
     restart: unless-stopped
-    
+
 ############################
 # LIDARR
 ############################
@@ -100,27 +100,28 @@ services:
       - PGID=1000
       - TZ=America/Halifax
     volumes:
-      - /media/harsha/Data/arr/lidarr/config:/config
-      - /media/harsha/Data/arr/lidarr/music:/music #optional
-      - /media/harsha/Data/arr/qbittorrent/downloads:/downloads #optional
+      - ./appdata/lidarr:/config
+      - /media/harsha/Data/arr/lidarr/music:/music
+      - /media/harsha/Data/arr/qbittorrent/downloads:/downloads
     restart: unless-stopped
 
-  flaresolverr:
-      # DockerHub mirror flaresolverr/flaresolverr:latest
-      image: ghcr.io/flaresolverr/flaresolverr:latest
-      container_name: flaresolverr
-      network_mode: "service:gluetun"
-      environment:
-        - LOG_LEVEL=${LOG_LEVEL:-info}
-        - LOG_HTML=${LOG_HTML:-false}
-        - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
-        - TZ=America/Halifax
-      # ports:
-      #   - "${PORT:-8191}:8191"
-      restart: unless-stopped
-    
 ############################
-# QBITTORRENT		
+# FLARESOLVERR
+############################
+
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    network_mode: "service:gluetun"
+    environment:
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - LOG_HTML=${LOG_HTML:-false}
+      - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
+      - TZ=America/Halifax
+    restart: unless-stopped
+
+############################
+# QBITTORRENT
 ############################
 
   qbittorrent:
@@ -134,12 +135,12 @@ services:
       - WEBUI_PORT=8080
       - TORRENTING_PORT=6881
     volumes:
-      - /media/harsha/Data/arr/qbittorrent/config:/config
-      - /media/harsha/Data/arr/qbittorrent/downloads:/downloads #optional
+      - ./appdata/qbittorrent:/config
+      - /media/harsha/Data/arr/qbittorrent/downloads:/downloads
     restart: unless-stopped
-    
+
 ############################
-# JELLYFIN	
+# JELLYFIN
 ############################
 
   jellyfin:
@@ -150,16 +151,18 @@ services:
       - PGID=1000
       - TZ=America/Halifax
     volumes:
-      - /media/harsha/Data/arr/jellyfin/config:/config
+      - ./appdata/jellyfin:/config
       - /media/harsha/Data/arr/sonarr/tvseries:/data/tvshows
       - /media/harsha/Data/arr/radarr/movies:/data/movies
+      # Note: You can also add your music folder here from Lidarr
+      # - /media/harsha/Data/arr/lidarr/music:/data/music
     ports:
       - 8096:8096
-      - 8920:8920 #optional
-      - 7359:7359/udp #optional
-      - 1900:1900/udp #optional
+      - 8920:8920
+      - 7359:7359/udp
+      - 1900:1900/udp
     restart: unless-stopped
-    
+
 ############################
 # GLUETUN
 ############################
@@ -183,10 +186,7 @@ services:
       - /dev/net/tun:/dev/net/tun
     environment:
       - VPN_SERVICE_PROVIDER=surfshark
-      - VPN_TYPE=wireguard # or wireguard
+      - VPN_TYPE=wireguard
       - WIREGUARD_PRIVATE_KEY=OMwClKyza32y/SoccgP30uaDa47tQ+kCqp3Gn/SYRWA=
       - WIREGUARD_ADDRESSES=10.14.0.2/16
       - SERVER_COUNTRIES=Canada
-      
-############################
-
