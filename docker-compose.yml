@@ -155,7 +155,7 @@ services:
   gluetun:
     image: qmcgaw/gluetun
     container_name: gluetun
-    # ... (rest of gluetun is unchanged) ...
+    restart: unless-stopped
     ports:
       - 9696:9696 #prowlarr
       - 7878:7878 #radarr
