@@ -201,7 +201,8 @@ services:
       # - VPN_TYPE=wireguard
       # - WIREGUARD_PRIVATE_KEY=OMwClKyza32y/SoccgP30uaDa47tQ+kCqp3Gn/SYRWA=
       # - WIREGUARD_ADDRESSES=10.14.0.2/16
-      - SERVER_COUNTRIES=Canada
+      # - SERVER_COUNTRIES=Canada
+      - SERVER_REGIONS=Canada
     healthcheck: # <--- ADD THIS ENTIRE BLOCK
       test: ["CMD", "curl", "-f", "http://localhost:8000/v1/health"]
       interval: 30s
