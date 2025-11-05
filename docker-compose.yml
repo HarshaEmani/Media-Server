@@ -193,9 +193,14 @@ services:
       - /dev/net/tun:/dev/net/tun
     environment:
       - VPN_SERVICE_PROVIDER=surfshark
-      - VPN_TYPE=wireguard
-      - WIREGUARD_PRIVATE_KEY=OMwClKyza32y/SoccgP30uaDa47tQ+kCqp3Gn/SYRWA=
-      - WIREGUARD_ADDRESSES=10.14.0.2/16
+      - VPN_TYPE=openvpn
+      - OPENVPN_USERNAME=9UGQvhntbXEmWMzAe6Lah2jR
+      - OPENVPN_PASSWORD=qb3vuCdaqNQypdzyuxjGHZkG
+      - TZ=America/Halifax
+
+      # - VPN_TYPE=wireguard
+      # - WIREGUARD_PRIVATE_KEY=OMwClKyza32y/SoccgP30uaDa47tQ+kCqp3Gn/SYRWA=
+      # - WIREGUARD_ADDRESSES=10.14.0.2/16
       - SERVER_COUNTRIES=Canada
     healthcheck: # <--- ADD THIS ENTIRE BLOCK
       test: ["CMD", "curl", "-f", "http://localhost:8000/v1/health"]
