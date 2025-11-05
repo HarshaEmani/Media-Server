@@ -20,6 +20,9 @@ services:
       - /media/harsha/HDD/media/movies:/movies # <-- CHANGED
       - /media/harsha/HDD/downloads:/downloads # <-- CHANGED
     restart: unless-stopped
+    depends_on: # <--- ADD THIS BLOCK
+      gluetun:
+        condition: service_healthy
 
 ############################
 # SONARR
@@ -38,6 +41,9 @@ services:
       - /media/harsha/HDD/media/tv:/tv # <-- CHANGED
       - /media/harsha/HDD/downloads:/downloads # <-- CHANGED
     restart: unless-stopped
+    depends_on: # <--- ADD THIS BLOCK
+      gluetun:
+        condition: service_healthy
 
 ############################
 # PROWLARR
@@ -54,6 +60,9 @@ services:
     volumes:
       - ./appdata/prowlarr:/config
     restart: unless-stopped
+    depends_on: # <--- ADD THIS BLOCK
+      gluetun:
+        condition: service_healthy
 
 ############################
 # BAZARR
@@ -72,6 +81,9 @@ services:
       - /media/harsha/HDD/media/movies:/movies # <-- CHANGED
       - /media/harsha/HDD/media/tv:/tv       # <-- CHANGED
     restart: unless-stopped
+    depends_on: # <--- ADD THIS BLOCK
+      gluetun:
+        condition: service_healthy
 
 ############################
 # LIDARR
@@ -90,6 +102,9 @@ services:
       - /media/harsha/HDD/media/music:/music # <-- CHANGED
       - /media/harsha/HDD/downloads:/downloads # <-- CHANGED
     restart: unless-stopped
+    depends_on: # <--- ADD THIS BLOCK
+      gluetun:
+        condition: service_healthy
 
 ############################
 # FLARESOLVERR
@@ -105,6 +120,9 @@ services:
       - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
       - TZ=America/Halifax
     restart: unless-stopped
+    depends_on: # <--- ADD THIS BLOCK
+      gluetun:
+        condition: service_healthy
 
 ############################
 # QBITTORRENT
@@ -124,6 +142,9 @@ services:
       - ./appdata/qbittorrent:/config
       - /media/harsha/HDD/downloads:/downloads # <-- CHANGED
     restart: unless-stopped
+    depends_on: # <--- ADD THIS BLOCK
+      gluetun:
+        condition: service_healthy
 
 ############################
 # JELLYFIN
@@ -176,3 +197,9 @@ services:
       - WIREGUARD_PRIVATE_KEY=OMwClKyza32y/SoccgP30uaDa47tQ+kCqp3Gn/SYRWA=
       - WIREGUARD_ADDRESSES=10.14.0.2/16
       - SERVER_COUNTRIES=Canada
+    healthcheck: # <--- ADD THIS ENTIRE BLOCK
+      test: ["CMD", "curl", "-f", "http://localhost:8000/v1/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
