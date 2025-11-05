@@ -204,7 +204,8 @@ services:
       # - SERVER_COUNTRIES=Canada
       - SERVER_REGIONS=The Americas
     healthcheck: # <--- ADD THIS ENTIRE BLOCK
-      test: ["CMD", "curl", "-f", "http://localhost:8000/v1/health"]
+      # test: ["CMD", "curl", "-f", "http://localhost:8000/v1/health"]
+      test: ["CMD", "wget", "--quiet", "--spider", "http://localhost:8000/v1/health"] # <--- CHANGE THIS LINE
       interval: 30s
       timeout: 5s
       retries: 5
