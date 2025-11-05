@@ -203,10 +203,10 @@ services:
       # - WIREGUARD_ADDRESSES=10.14.0.2/16
       # - SERVER_COUNTRIES=Canada
       - SERVER_REGIONS=The Americas
-    healthcheck: # <--- ADD THIS ENTIRE BLOCK
-      # test: ["CMD", "curl", "-f", "http://localhost:8000/v1/health"]
-      test: ["CMD", "wget", "--quiet", "--spider", "http://localhost:8000/v1/health"] # <--- CHANGE THIS LINE
-      interval: 30s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
+    # healthcheck: # <--- ADD THIS ENTIRE BLOCK
+    #   # test: ["CMD", "curl", "-f", "http://localhost:8000/v1/health"]
+    #   test: ["CMD", "wget", "--quiet", "--spider", "http://localhost:8000/v1/health"] # <--- CHANGE THIS LINE
+    #   interval: 30s
+    #   timeout: 5s
+    #   retries: 5
+    #   start_period: 30s
