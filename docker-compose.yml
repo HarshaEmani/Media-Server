@@ -194,8 +194,8 @@ services:
     environment:
       - VPN_SERVICE_PROVIDER=surfshark
       - VPN_TYPE=openvpn
-      - OPENVPN_USER=9UGQvhntbXEmWMzAe6Lah2jR
-      - OPENVPN_PASSWORD=qb3vuCdaqNQypdzyuxjGHZkG
+      - OPENVPN_USER=${OPENVPN_PASSWORD}
+      - OPENVPN_PASSWORD=${OPENVPN_PASSWORD}
       - TZ=America/Halifax
 
       # - VPN_TYPE=wireguard
